@@ -1,2 +1,5 @@
-# codechallenge-reactnative
-React Native code challenge. Used to test the development skills of candidates looking to join the engineering team. 
+# Code Challenge: React Native
+## Cross-platform Mobile Development Skills Assessment
+
+React Native code challenge. Used to test the development skills of those  
+candidates looking to join our engineering team. 
