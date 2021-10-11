@@ -51,6 +51,8 @@ Verify:
 ## Requirements
 _Where the fun really beings_
 
+- [ ] Development environment setup instructions
+
 ### API Integration
 - [ ] Handle common errors associated with asynchronous API calls (i.e. HTTP error responses, failed API calls, etc.)
 - [ ] Handle common formatting issues that arise when using a third-party API as a back-end (i.e. proper letter casing, empty strings, empty objects, missing data, extra spaces, etc.)
