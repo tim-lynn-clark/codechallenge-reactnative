@@ -1,0 +1,103 @@
+import React, {useCallback, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import Constants from '../../Constants';
+
+import Colors from '../../Colors';
+import Home from './Home/Home';
+
+import More from './More/More';
+
+const Tab = createBottomTabNavigator();
+
+const HomeStack = createStackNavigator();
+
+function HomeScreen() {
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.blue,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{title: 'Home'}}
+      />
+    </HomeStack.Navigator>
+  );
+}
+
+const MoreStack = createStackNavigator();
+
+function MoreScreen() {
+  return (
+    <MoreStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.blue,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <MoreStack.Screen
+        name="More"
+        component={More}
+        options={{title: 'More'}}
+      />
+    </MoreStack.Navigator>
+  );
+}
+/**
+ * @author
+ * @function Dashboard
+ **/
+const Dashboard = props => {
+  return (
+    <>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = 'home-outline';
+            }
+
+            if (route.name === 'More') {
+              iconName = 'reorder-four-outline';
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'blue',
+          inactiveTintColor: 'gray',
+        }}>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="More" component={MoreScreen} />
+      </Tab.Navigator>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+export default Dashboard;
