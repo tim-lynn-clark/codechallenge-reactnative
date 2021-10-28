@@ -5,10 +5,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Constants from '../../Constants';
-
 import Colors from '../../Colors';
 import Home from './Home/Home';
+import CancerDetails from './Home/CancerDetails';
+import WebDetails from './Home/WebDetails';
 
 import More from './More/More';
 
@@ -32,6 +32,20 @@ function HomeScreen() {
         name="Home"
         component={Home}
         options={{title: 'Home'}}
+      />
+      <HomeStack.Screen
+        name="CancerDetails"
+        component={CancerDetails}
+        options={({route}) => ({
+          title: route.params.title,
+        })}
+      />
+      <HomeStack.Screen
+        name="WebDetails"
+        component={WebDetails}
+        options={({route}) => ({
+          title: route.params.title,
+        })}
       />
     </HomeStack.Navigator>
   );

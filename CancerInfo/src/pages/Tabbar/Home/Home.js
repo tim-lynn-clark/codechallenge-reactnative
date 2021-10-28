@@ -12,7 +12,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useDispatch, useSelector} from 'react-redux';
 
-import {getCancerTypes} from '../../../store/actions/appState';
+import {
+  getCancerTypes,
+  getCancerDetails,
+} from '../../../store/actions/appState';
 
 import Card from '../../../components/Card';
 
@@ -66,25 +69,30 @@ const Home = props => {
       </Text>
       <FlatList
         data={appState.cancerTypes}
-        renderItem={LineItem}
+        renderItem={({item}) => (
+          <LineItem
+            item={item}
+            navigation={props.navigation}
+            dispatch={dispatch}
+          />
+        )}
         keyExtractor={item => item.name}
       />
     </View>
   );
-  xreturn(
-    <View style={container}>
-      <Text>Cancer Types</Text>
-      {appState.cancerTypes.map((item, index) => {
-        return <LineItem item={item} key={index} />;
-      })}
-    </View>,
-  );
 };
 
-const LineItem = ({item}) => {
+const LineItem = ({item, navigation, dispatch}) => {
   return (
     <>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          // Get Cancer Details
+          dispatch(getCancerDetails(item.link));
+          navigation.navigate('CancerDetails', {
+            title: item.name,
+          });
+        }}>
         <Card style={styles.card}>
           <View
             style={{
