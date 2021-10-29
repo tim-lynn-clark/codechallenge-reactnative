@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import RoundedButton from '../components/RoundedButton';
 
@@ -11,6 +11,7 @@ import SliderEntry from './SliderEntry';
 import {processCarouselDone} from '../store/actions/appState';
 
 import Colors from '../Colors';
+
 /**
 * @author Tom Jay
 * @function CarouselItems
@@ -42,12 +43,6 @@ const CarouselItems = props => {
 
   const {width: viewportWidth, height: viewportHeight} =
     Dimensions.get('window');
-
-  const sliderWidth = viewportWidth;
-  const itemWidth = slideWidth + itemHorizontalMargin * 2;
-
-  const slideWidth = wp(75);
-  const itemHorizontalMargin = wp(2);
 
   function wp(percentage) {
     const value = (percentage * viewportWidth) / 100;

@@ -1,51 +1,24 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+
+import Color from '../Colors';
 /**
  * @author Tom Jay
  * @function CollapseHeader
  **/
 const CollapseHeader = ({collapsed, onPress, title}) => {
   return (
-    <View
-      style={{
-        marginTop: 20,
-        marginLeft: 20,
-        flexDirection: 'row',
-        alignContent: 'center',
-      }}>
-      <View
-        style={{
-          flexDirection: 'column',
-          backgroundColor: '#b3d4fc',
-          justifyContent: 'center',
-        }}>
-        <Text
-          style={{
-            marginLeft: 5,
-            width: 300,
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: 'black',
-          }}>
-          {title}
-        </Text>
+    <View style={styles.headerContainer}>
+      <View style={styles.headerTextContainer}>
+        <Text style={styles.headerTitle}>{title}</Text>
       </View>
 
       <TouchableOpacity
         onPress={onPress}
-        style={{
-          backgroundColor: '#b3d4fc',
-          paddingRight: 5,
-        }}>
+        style={styles.expandCollapseButtonContainer}>
         {collapsed && (
           <Ionicons name="chevron-down-outline" size={25} color="gray" />
         )}
@@ -62,6 +35,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  headerContainer: {
+    marginTop: 20,
+    marginLeft: 20,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  headerTextContainer: {
+    flexDirection: 'column',
+    backgroundColor: '#b3d4fc',
+    justifyContent: 'center',
+  },
+  headerTitle: {
+    marginLeft: 5,
+    width: 300,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.black,
+  },
+  expandCollapseButtonContainer: {
+    backgroundColor: Colors.ltBlue,
+    paddingRight: 5,
   },
 });
 
