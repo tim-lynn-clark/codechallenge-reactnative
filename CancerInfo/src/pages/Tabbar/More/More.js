@@ -6,9 +6,8 @@ import {View, Text, StyleSheet} from 'react-native';
  * @function More
  **/
 const More = props => {
-  const {container} = styles;
   return (
-    <View style={container}>
+    <View style={styles.container}>
       <Text>More</Text>
     </View>
   );

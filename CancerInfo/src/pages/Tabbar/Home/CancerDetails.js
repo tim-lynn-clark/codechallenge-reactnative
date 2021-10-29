@@ -93,7 +93,7 @@ const CancerDetails = props => {
 
   if (appState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.activityIndicatorContainer}>
         <ActivityIndicator size="large" color="gray" />
         <Text>Loading Data...</Text>
       </View>
@@ -127,36 +127,13 @@ const CancerDetails = props => {
     <ScrollView style={container}>
       {details && (
         <>
-          <View
-            style={{
-              marginTop: 20,
-              marginLeft: 20,
-              width: 335,
-              backgroundColor: '#b3d4fc',
-            }}>
-            <Text
-              style={{
-                marginLeft: 5,
-                width: 300,
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: 'black',
-              }}>
-              Overview
-            </Text>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.headerContainer}>Overview</Text>
           </View>
-          <View
-            style={{
-              marginLeft: 20,
-              marginTop: 5,
-              width: 330,
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: 'black',
-            }}>
+          <View style={styles.overViewContainer}>
             <Text>{details.overview}</Text>
             <TouchableOpacity
-              style={{marginTop: 10}}
+              style={styles.webLinkContainer}
               onPress={() => {
                 const path = details.source.split('//')[1];
                 const title = path.split('/')[0];
@@ -165,7 +142,7 @@ const CancerDetails = props => {
                   url: details.source,
                 });
               }}>
-              <Text style={{color: 'blue'}}>Learn More...</Text>
+              <Text style={styles.webLinkText}>Learn More...</Text>
             </TouchableOpacity>
           </View>
 
@@ -219,6 +196,34 @@ const CancerDetails = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  webLinkContainer: {marginTop: 10},
+  webLinkText: {color: 'blue'},
+  activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  detailsContainer: {
+    marginTop: 20,
+    marginLeft: 20,
+    width: 335,
+    backgroundColor: '#b3d4fc',
+  },
+  headerContainer: {
+    marginLeft: 5,
+    width: 300,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  overViewContainer: {
+    marginLeft: 20,
+    marginTop: 5,
+    width: 330,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
 

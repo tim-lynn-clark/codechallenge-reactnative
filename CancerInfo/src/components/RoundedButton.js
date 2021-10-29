@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 /**
- * @author
+ * @author Tom Jay
  * @function RoundedButton
  **/
 const RoundedButton = ({textValue, onPress, color, inputStyles}) => {

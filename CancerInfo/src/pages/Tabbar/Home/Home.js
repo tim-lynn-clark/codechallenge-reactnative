@@ -41,7 +41,7 @@ const Home = props => {
 
   if (appState.isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.activityIndicatorContainer}>
         <ActivityIndicator size="large" color="gray" />
         <Text>Loading Data...</Text>
       </View>
@@ -50,7 +50,7 @@ const Home = props => {
 
   if (!appState.isLoading && appState.cancerTypes.length === 0) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.noDataContainer}>
         <Text>Sorry, No Data Found...</Text>
       </View>
     );
@@ -58,15 +58,7 @@ const Home = props => {
 
   return (
     <View style={container}>
-      <Text
-        style={{
-          fontSize: 20,
-          fontWeight: 'bold',
-          marginTop: 10,
-          marginBottom: 20,
-        }}>
-        Cancer Types
-      </Text>
+      <Text style={styles.headerContainer}>Cancer Types</Text>
       <FlatList
         data={appState.cancerTypes}
         renderItem={({item}) => (
@@ -94,15 +86,11 @@ const LineItem = ({item, navigation, dispatch}) => {
           });
         }}>
         <Card style={styles.card}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
+          <View style={styles.cardView}>
             <View style={styles.cardTitle}>
               <Text style={styles.cardTitleText}>{item.name}</Text>
             </View>
-            <View style={{justifyContent: 'center'}}>
+            <View style={styles.center}>
               <Ionicons name="chevron-forward-outline" size={25} color="gray" />
             </View>
           </View>
@@ -118,11 +106,32 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
   },
+  activityIndicatorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContainer: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 20,
+  },
   card: {
     margin: 15,
     padding: 2,
     width: 250,
   },
+  cardView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  center: {justifyContent: 'center'},
   cardTitle: {width: 200, padding: 10},
   cardTitleText: {fontSize: 18, fontWeight: 'bold'},
 });

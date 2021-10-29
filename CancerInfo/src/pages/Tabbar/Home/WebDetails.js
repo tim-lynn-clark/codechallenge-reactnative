@@ -10,12 +10,12 @@ const WebDetails = props => {
 
   return (
     <View style={styles.screen}>
-      <View style={{alignItems: 'center', backgroundColor: 'grey', padding: 5}}>
+      <View style={styles.urlContainer}>
         <Text>{props.route.params.url}</Text>
       </View>
 
       <WebView
-        style={{backgroundColor: 'gray'}}
+        style={styles.webView}
         renderLoading={LoadingIndicatorView}
         source={{uri: props.route.params.url}}
         startInLoadingState={true}
@@ -29,5 +29,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 10,
   },
+  urlContainer: {
+    alignItems: 'center',
+    backgroundColor: 'grey',
+    padding: 5,
+  },
+  webView: {backgroundColor: 'gray'},
 });
 export default WebDetails;

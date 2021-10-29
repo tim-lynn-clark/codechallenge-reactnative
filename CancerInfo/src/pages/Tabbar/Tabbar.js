@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Colors from '../../Colors';
+
 import Home from './Home/Home';
 import CancerDetails from './Home/CancerDetails';
 import WebDetails from './Home/WebDetails';
@@ -74,10 +75,10 @@ function MoreScreen() {
   );
 }
 /**
- * @author
- * @function Dashboard
+ * @author Tom Jay
+ * @function Tabbar
  **/
-const Dashboard = props => {
+const Tabbar = props => {
   return (
     <>
       <Tab.Navigator
@@ -107,11 +108,4 @@ const Dashboard = props => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-export default Dashboard;
+export default Tabbar;

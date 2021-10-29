@@ -11,12 +11,7 @@ const SliderEntry = ({data, even}) => {
 
   const image = (
     <Image
-      style={{
-        width: '100%',
-        height: '90%',
-        borderTopLeftRadius: 16,
-        borderTopRightRadius: 16,
-      }}
+      style={styles.imageHolder}
       source={{
         uri: data.illustration,
       }}
@@ -77,6 +72,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 10,
     marginRight: 10,
+  },
+  imageHolder: {
+    width: '100%',
+    height: '90%',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
 });
 export default SliderEntry;

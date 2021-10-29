@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image} from 'react-native';
 
 import GlobalStyles from '../GlobalStyles';
 
@@ -16,7 +16,5 @@ const Splash = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default Splash;
