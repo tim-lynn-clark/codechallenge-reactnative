@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Text } from "react-native";
 import axios from "axios";
 import fetchComponent from "../components/fetchComponent";
+import CancerList from "../components/cancerList";
 
 const HomeScreen = ({ navigation }) => {
-  const { cancerTypes, loading } = fetchComponent();
+  const { data, loading } = fetchComponent({
+    link: "http://localhost:8888/cancer_types",
+  });
 
-  const CancerList = () => {
-    if (loading) {
-      return <Text>Loading...</Text>;
-    } else {
-      return cancerTypes.map(({ name, link }, index) => (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Details");
-          }}
-          key={index}
-        >
-          <Text>
-            {index + 1}. Cancer type: {name} and the link is: {link}.
-          </Text>
-        </TouchableOpacity>
-      ));
-    }
-  };
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <CancerList />
+      <CancerList
+        loading={loading}
+        data={data}
+        onSelection={(index) => {
+          navigation.navigate("Details", {
+            data: data[index],
+          });
+        }}
+      />
     </View>
   );
 };

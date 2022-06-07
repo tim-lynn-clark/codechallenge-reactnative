@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
 import axios from "axios";
 
-const fetchComponent = () => {
-  const [cancerTypes, setCancerTypes] = useState([]);
+const fetchComponent = (props) => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const baseUrl = "http://localhost:8888";
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    console.log("tsting props", props.link);
     const configurationObject = {
       method: "get",
-      url: `${baseUrl}/cancer_types`,
+      url: props.link,
     };
     const response = await axios(configurationObject);
     if (response.status === 200) {
-      setCancerTypes(response.data);
-      console.log(cancerTypes);
+      setData(response.data);
+      console.log(response.data);
     } else {
       console.log("Error Loading Data");
+      setLoading(false);
+      return <Text>There was an error</Text>;
     }
     setLoading(false);
   };
 
-  return { cancerTypes, loading };
+  return { data, loading };
 };
 
 export default fetchComponent;
