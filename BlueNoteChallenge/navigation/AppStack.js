@@ -12,7 +12,7 @@ const AppStack = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={({ navigation }) => ({
+        options={() => ({
           title: "Home",
           headerShown: false,
         })}
@@ -20,9 +20,9 @@ const AppStack = () => {
       <Stack.Screen
         name="Details"
         component={DetailsScreen}
-        options={({ navigation }) => ({
-          title: "Details",
-          headerShown: false,
+        options={({ route }) => ({
+          title: route.params.data.name,
+          headerShown: true,
         })}
       />
     </Stack.Navigator>

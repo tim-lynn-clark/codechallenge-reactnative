@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { create } from "apisauce";
 
 const fetchComponent = (props) => {
   const [data, setData] = useState([]);
@@ -10,21 +11,24 @@ const fetchComponent = (props) => {
   }, []);
 
   const fetchData = async () => {
-    console.log("tsting props", props.link);
-    const configurationObject = {
-      method: "get",
-      url: props.link,
-    };
-    const response = await axios(configurationObject);
-    if (response.status === 200) {
-      setData(response.data);
-      console.log(response.data);
-    } else {
-      console.log("Error Loading Data");
+    try {
+      console.log("props received:", props.link);
+      const configurationObject = {
+        method: "get",
+        url: props.link,
+      };
+      const response = await axios(configurationObject);
+
+      console.log("response:", response);
+      if (response.status === 200) {
+        setData(response.data);
+        console.log(response.data);
+      }
       setLoading(false);
-      return <Text>There was an error</Text>;
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return { data, loading };

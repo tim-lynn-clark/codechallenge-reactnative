@@ -13,7 +13,6 @@ const DetailsScreen = ({ navigation, route }) => {
     <View style={styles.container}>
       <Text>{data2.name}</Text>
       <Text>{data2.overview}</Text>
-      <Button onPress={() => navigation.goBack()} title="go back" />
     </View>
   );
 };

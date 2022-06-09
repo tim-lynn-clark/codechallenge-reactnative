@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
-import axios from "axios";
+import { StyleSheet, View, Text, SafeAreaView } from "react-native";
 import fetchComponent from "../components/fetchComponent";
 import CancerList from "../components/cancerList";
+import Header from "../components/UI/Header";
 
 const HomeScreen = ({ navigation }) => {
   const { data, loading } = fetchComponent({
@@ -18,7 +18,8 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Header />
       <CancerList
         loading={loading}
         data={data}
@@ -28,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
           });
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
