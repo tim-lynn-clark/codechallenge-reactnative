@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Platform } from "react-native";
 import axios from "axios";
-import { create } from "apisauce";
 
 const fetchComponent = (props) => {
   const [data, setData] = useState([]);
@@ -11,22 +11,27 @@ const fetchComponent = (props) => {
   }, []);
 
   const fetchData = async () => {
+    let url;
+
+    if (Platform.OS === "ios") {
+      url = props.link;
+    } else {
+      url = props.link.replace("localhost", "10.0.2.2");
+    }
+    console.log(url);
     try {
-      console.log("props received:", props.link);
       const configurationObject = {
         method: "get",
-        url: props.link,
+        url: url,
       };
       const response = await axios(configurationObject);
-
-      console.log("response:", response);
       if (response.status === 200) {
         setData(response.data);
         console.log(response.data);
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
       setLoading(false);
     }
   };

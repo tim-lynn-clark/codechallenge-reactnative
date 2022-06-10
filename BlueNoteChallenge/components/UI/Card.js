@@ -1,32 +1,42 @@
 import React from "react";
-import styled from "styled-components";
+import { View, StyleSheet, Text } from "react-native";
+import { wp, hp } from "./designDimensions";
 
 const Card = (props) => {
+  var colorsArray = ["#0bbdde", "#6ccfc0", "#76c4fa"];
   return (
-    <Item>
-      <Text>{props.type}</Text>
-    </Item>
+    <View style={styles.container}>
+      <Text
+        adjustsFontSizeToFit
+        style={[styles.text, { color: colorsArray[props.index] }]}
+      >
+        {props.type}
+      </Text>
+    </View>
   );
 };
 
 export default Card;
 
-const Item = styled.View`
-  background: #294c9b;
-  height: 100px;
-  width: 350px;
-  padding: 12px 16px 12px;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-  align-items: center;
-  justify-content: center;
-  margin: 10px 8px;
-`;
-const Text = styled.Text`
-  font-size: 35px;
-  font-weight: bold;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  color: white;
-`;
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 15,
+    shadowColor: "black",
+    shadowOpacity: 0.26,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    elevation: 5,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    height: hp(10),
+    width: wp(95),
+    margin: 10,
+  },
+  text: {
+    fontSize: 35,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});

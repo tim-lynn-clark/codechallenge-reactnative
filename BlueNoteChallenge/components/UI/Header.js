@@ -1,12 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
+
+const screen = Dimensions.get("screen");
 
 const Header = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome</Text>
-      <Text style={styles.subtitle}>Lets begin</Text>
-      <Text style={styles.caption}>Select a cancer</Text>
+      <Image style={styles.image} source={require("../../assets/peace.jpeg")} />
+      <Text style={styles.title}>Welcome to Blue Note</Text>
+      <Text adjustsFontSizeToFit style={styles.subtitle}>
+        Cancer can be hard, we are here to help.{"\n"}Start here and follow your
+        journey below.
+      </Text>
     </View>
   );
 };
@@ -17,25 +22,26 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  image: {
+    width: screen.width,
+    height: 200,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 20,
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 20,
-  },
-  caption: {
-    fontSize: 15,
+    fontSize: 25,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
-    marginBottom: 20,
-    color: "grey",
+    color: "#254c9a",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    color: "#304b8c",
   },
 });

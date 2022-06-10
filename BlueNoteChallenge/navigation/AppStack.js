@@ -3,19 +3,29 @@ import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import DetailsScreen from "../screens/DetailsScreen";
+import HeaderTitle from "../components/UI/HeaderTitle";
+import Colors from "../constants/Colors";
 
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={() => ({
-          title: "Home",
-          headerShown: false,
-        })}
+        options={{ headerTitle: (props) => <HeaderTitle {...props} /> }}
       />
       <Stack.Screen
         name="Details"

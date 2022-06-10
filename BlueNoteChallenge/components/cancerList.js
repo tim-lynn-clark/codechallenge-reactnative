@@ -13,7 +13,7 @@ const CancerList = (props) => {
         }}
         key={index}
       >
-        <Card type={name}></Card>
+        <Card type={name} index={index}></Card>
       </TouchableOpacity>
     ));
   }
