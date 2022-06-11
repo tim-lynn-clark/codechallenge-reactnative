@@ -8,6 +8,7 @@ import {
 import React from "react";
 import fetchComponent from "../components/fetchComponent";
 import Colors from "../constants/Colors";
+import DetailsItem from "../components/UI/DetailsItem";
 
 const DetailsScreen = ({ navigation, route }) => {
   const { data } = route.params;
@@ -27,8 +28,10 @@ const DetailsScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Text>{data2.name}</Text>
-      <Text>{data2.overview}</Text>
+      <DetailsItem data={data2} />
+
+      {/* <Text>{data2.name}</Text>
+      <Text>{data2.overview}</Text> */}
     </View>
   );
 };
