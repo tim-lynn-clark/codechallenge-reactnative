@@ -38,12 +38,6 @@ const HomeScreen = ({ navigation }) => {
           <Header />
           <View style={styles.listContainer}>
             <Text style={styles.caption}>Choose Your Journey</Text>
-            <Button
-              title="webnav"
-              onPress={() => {
-                navigation.navigate("WebView");
-              }}
-            />
             <CancerList
               loading={loading}
               data={data}

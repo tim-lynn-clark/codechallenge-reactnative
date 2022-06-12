@@ -50,6 +50,7 @@ const Card = (props) => {
         </Text>
 
         <Comp
+          activeOpacity={0.6}
           style={{ flexDirection: "row" }}
           onPress={() => {
             if (props.selected === props.index) {

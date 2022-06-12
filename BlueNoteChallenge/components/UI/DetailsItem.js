@@ -26,21 +26,43 @@ const screen = Dimensions.get("screen");
 
 const DetailsItem = (props) => {
   const [expanded, setExpanded] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const toggleExpanded = () => {
     setExpanded(!expanded);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
   var objKeys = Object.keys(props.data).splice(3, 6);
-  console.log(Object.keys(props.data).splice(3, 6));
+  console.log(props.data[objKeys[selectedIndex]]);
+  // var values = Object.values(props.data).splice(3, 6);
+  // console.log(values);
+
+  var values = props.data[objKeys[selectedIndex]];
+  const Values = () => {
+    return values.map((val, index) => {
+      // var values = Object.values(props.data).splice(3, 6);
+      // console.log(values);
+      // return values.map((value, index) => {})
+
+      return (
+        <View key={index}>
+          <Text>{val.title}</Text>
+          <Text>{val.url}</Text>
+        </View>
+      );
+    });
+  };
 
   const Collapse = () => {
     return objKeys.map((key, index) => {
       return (
         <>
           <TouchableOpacity
-            key={index}
-            onPress={toggleExpanded}
+            onPress={() => {
+              key = { index };
+              toggleExpanded();
+              setSelectedIndex(index);
+            }}
             style={styles.header}
             activeOpacity={0.6}
           >
@@ -48,14 +70,20 @@ const DetailsItem = (props) => {
               <Text style={styles.headerText}>{key}</Text>
             </View>
             <Icon
-              name={expanded ? "chevron-up-outline" : "chevron-down-outline"}
+              name={
+                expanded && index === selectedIndex
+                  ? "chevron-up-outline"
+                  : "chevron-down-outline"
+              }
               size={30}
               color="black"
             />
           </TouchableOpacity>
-          <View style={[styles.list, !expanded ? styles.hidden : undefined]}>
-            <Text>{props.data.overview}</Text>
-          </View>
+          {index === selectedIndex && (
+            <View style={[styles.list, !expanded ? styles.hidden : undefined]}>
+              <Values />
+            </View>
+          )}
         </>
       );
     });

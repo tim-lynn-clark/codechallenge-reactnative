@@ -11,6 +11,7 @@ const CancerList = (props) => {
   } else {
     return props.data.map(({ name, link }, index) => (
       <TouchableOpacity
+        activeOpacity={0.6}
         onPress={() => {
           if (selectedIndex === index) {
             setSelectedIndex(null);
