@@ -7,6 +7,9 @@ import {
   UIManager,
   ScrollView,
   StatusBar,
+  Dimensions,
+  Linking,
+  Image,
   Platform,
   TouchableOpacity,
 } from "react-native";
@@ -19,6 +22,7 @@ if (
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
+const screen = Dimensions.get("screen");
 
 const DetailsItem = (props) => {
   const [expanded, setExpanded] = useState(false);
@@ -27,40 +31,61 @@ const DetailsItem = (props) => {
     setExpanded(!expanded);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
+  var objKeys = Object.keys(props.data).splice(3, 6);
+  console.log(Object.keys(props.data).splice(3, 6));
 
   const Collapse = () => {
-    return (
-      <>
-        <TouchableOpacity
-          onPress={toggleExpanded}
-          style={styles.header}
-          activeOpacity={0.6}
-        >
-          <View>
-            <Text style={styles.headerText}>Treatments</Text>
+    return objKeys.map((key, index) => {
+      return (
+        <>
+          <TouchableOpacity
+            key={index}
+            onPress={toggleExpanded}
+            style={styles.header}
+            activeOpacity={0.6}
+          >
+            <View>
+              <Text style={styles.headerText}>{key}</Text>
+            </View>
+            <Icon
+              name={expanded ? "chevron-up-outline" : "chevron-down-outline"}
+              size={30}
+              color="black"
+            />
+          </TouchableOpacity>
+          <View style={[styles.list, !expanded ? styles.hidden : undefined]}>
+            <Text>{props.data.overview}</Text>
           </View>
-          <Icon
-            name={expanded ? "chevron-up-outline" : "chevron-down-outline"}
-            size={30}
-            color="black"
-          />
-        </TouchableOpacity>
-        <View style={[styles.list, !expanded ? styles.hidden : undefined]}>
-          <Text>{props.data.overview}</Text>
-        </View>
-      </>
-    );
+        </>
+      );
+    });
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <StatusBar hidden={true} backgroundColor={"transparent"} translucent />
       <View style={styles.headContainer}>
+        <Image
+          style={styles.image}
+          source={require("../../assets/water.jpeg")}
+        />
+
         <Text style={styles.headerTitle}>Overview</Text>
-        <Text style={styles.headerSubtitle}>{props.data.overview}</Text>
+        <Text adjustsFontSizeToFit style={styles.headerSubtitle}>
+          {props.data.overview}
+        </Text>
+        <Text
+          onPress={() => {
+            props.webNav(props.data.source);
+          }}
+          adjustsFontSizeToFit
+          style={styles.headerSubtitle}
+        >
+          Click here for more information
+        </Text>
       </View>
       <Collapse />
-    </ScrollView>
+    </View>
   );
 };
 
@@ -72,22 +97,26 @@ const styles = StyleSheet.create({
   },
   headContainer: {
     backgroundColor: "#e7e7e7",
-    padding: 10,
+  },
+  image: {
+    width: screen.width,
+    height: 200,
   },
   headerTitle: {
     fontSize: 25,
-    fontWeight: "900",
+    fontWeight: "bold",
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 5,
     color: "#254c9a",
   },
   headerSubtitle: {
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: "400",
     textAlign: "center",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     color: "#304b8c",
+    paddingHorizontal: 10,
   },
   header: {
     alignItems: "center",

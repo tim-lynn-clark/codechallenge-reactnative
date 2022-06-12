@@ -6,7 +6,10 @@ import {
   Dimensions,
   ActivityIndicator,
   ScrollView,
+  Button,
 } from "react-native";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+
 import fetchComponent from "../components/fetchComponent";
 import CancerList from "../components/cancerList";
 import Header from "../components/UI/Header";
@@ -29,24 +32,31 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.box}>
-        <Header />
-        <View style={styles.listContainer}>
-          <Text style={styles.caption}>Choose Your Journey</Text>
-
-          <CancerList
-            loading={loading}
-            data={data}
-            onSelection={(index) => {
-              navigation.navigate("Details", {
-                data: data[index],
-              });
-            }}
-          />
-        </View>
-      </View>
-    </ScrollView>
+    <SafeAreaProvider>
+      <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.box}>
+          <Header />
+          <View style={styles.listContainer}>
+            <Text style={styles.caption}>Choose Your Journey</Text>
+            <Button
+              title="webnav"
+              onPress={() => {
+                navigation.navigate("WebView");
+              }}
+            />
+            <CancerList
+              loading={loading}
+              data={data}
+              onSelection={(index) => {
+                navigation.navigate("Details", {
+                  data: data[index],
+                });
+              }}
+            />
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 };
 
@@ -75,7 +85,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
-    marginBottom: 10,
     color: "#393939",
   },
 });

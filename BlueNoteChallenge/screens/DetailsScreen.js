@@ -1,25 +1,27 @@
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
   Button,
+  ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React from "react";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+
 import fetchComponent from "../components/fetchComponent";
 import Colors from "../constants/Colors";
 import DetailsItem from "../components/UI/DetailsItem";
 
 const DetailsScreen = ({ navigation, route }) => {
   const { data } = route.params;
-  const { data: data2, loading } = fetchComponent({
+  const { data: items, loading } = fetchComponent({
     link: data.link,
   });
-  console.log("details", data);
 
   if (loading) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={Colors.primary} />
         <Text>Loading...</Text>
       </View>
@@ -27,20 +29,33 @@ const DetailsScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <DetailsItem data={data2} />
-
-      {/* <Text>{data2.name}</Text>
-      <Text>{data2.overview}</Text> */}
-    </View>
+    <SafeAreaProvider>
+      <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.box}>
+          <DetailsItem
+            data={items}
+            webNav={(link) => {
+              navigation.navigate("WebView", { link: link });
+            }}
+          />
+        </SafeAreaView>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 };
 
 export default DetailsScreen;
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
+  },
+  box: {
     justifyContent: "center",
     alignItems: "center",
   },

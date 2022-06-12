@@ -1,5 +1,11 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  LayoutAnimation,
+} from "react-native";
 import Colors from "../../constants/Colors";
 import { wp, hp } from "./designDimensions";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -9,7 +15,26 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const Card = (props) => {
+  var descriptions = [
+    "Breast cancer is the second most common cancer in women after skin cancer",
+    "Leukemia is a broad term for cancers of the blood cells",
+    "Lymphoma is a broad term for cancer that begins in cells of the lymph system",
+  ];
+
+  let Comp;
+  if (props.selected === props.index) {
+    Comp = TouchableOpacity;
+  } else {
+    Comp = View;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
@@ -23,7 +48,15 @@ const Card = (props) => {
         >
           {props.type}
         </Text>
-        <View style={{ flexDirection: "row" }}>
+
+        <Comp
+          style={{ flexDirection: "row" }}
+          onPress={() => {
+            if (props.selected === props.index) {
+              props.onNext();
+            }
+          }}
+        >
           <Text style={styles.rightText}>
             {props.selected === props.index ? "Next" : "Select"}
           </Text>
@@ -36,7 +69,7 @@ const Card = (props) => {
             size={30}
             color={props.selected === props.index ? "#9EE3B4" : "black"}
           />
-        </View>
+        </Comp>
       </View>
       <View
         style={{
@@ -72,6 +105,19 @@ const Card = (props) => {
           <Text style={styles.bottomText}>Care</Text>
         </View>
       </View>
+      {props.selected === props.index && (
+        <View
+          style={[
+            styles.list,
+            props.selected !== props.index ? styles.hidden : null,
+          ]}
+        >
+          <Text style={styles.hiddenText}>
+            {descriptions[props.index]}. Click{" "}
+            <Text style={{ fontWeight: "bold" }}>Next</Text> for more details
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -88,7 +134,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: "#fff",
-    height: hp(15),
+    // height: hp(15),
     width: wp(95),
     margin: 10,
   },
@@ -122,6 +168,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "300",
     marginLeft: 3,
+    color: "#575757",
+  },
+  hidden: {
+    height: 0,
+  },
+  hiddenText: {
+    fontSize: 20,
+    fontWeight: "300",
+    padding: 10,
     color: "#575757",
   },
 });

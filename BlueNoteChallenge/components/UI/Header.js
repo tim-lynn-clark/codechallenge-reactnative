@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  SafeAreaView,
+  Image,
+  StatusBar,
+} from "react-native";
 
 const screen = Dimensions.get("screen");
 
 const Header = () => {
   return (
     <View style={styles.container}>
+      <StatusBar hidden={true} backgroundColor={"transparent"} translucent />
+
       <Image style={styles.image} source={require("../../assets/peace.jpeg")} />
       <Text style={styles.title}>Welcome to Blue Note</Text>
       <Text adjustsFontSizeToFit style={styles.subtitle}>
@@ -27,7 +37,6 @@ const styles = StyleSheet.create({
   image: {
     width: screen.width,
     height: 200,
-    marginBottom: 20,
   },
   title: {
     fontSize: 25,

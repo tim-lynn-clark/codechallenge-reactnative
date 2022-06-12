@@ -18,7 +18,6 @@ const fetchComponent = (props) => {
     } else {
       url = props.link.replace("localhost", "10.0.2.2");
     }
-    console.log(url);
     try {
       const configurationObject = {
         method: "get",
@@ -27,7 +26,6 @@ const fetchComponent = (props) => {
       const response = await axios(configurationObject);
       if (response.status === 200) {
         setData(response.data);
-        console.log(response.data);
       }
     } catch (error) {
       console.log(error);
