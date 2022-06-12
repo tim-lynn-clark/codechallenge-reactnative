@@ -8,12 +8,7 @@ import {
 } from "react-native";
 import Colors from "../../constants/Colors";
 import { wp, hp } from "./designDimensions";
-import Icon from "react-native-vector-icons/Ionicons";
-import {
-  MaterialCommunityIcons,
-  Ionicons,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 if (
   Platform.OS === "android" &&
@@ -135,7 +130,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: "#fff",
-    // height: hp(15),
     width: wp(95),
     margin: 10,
   },
@@ -179,5 +173,8 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     padding: 10,
     color: "#575757",
+  },
+  list: {
+    overflow: "hidden",
   },
 });
