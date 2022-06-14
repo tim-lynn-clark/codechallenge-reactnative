@@ -36,14 +36,11 @@ const DetailsItem = (props) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
 
-  var objKeys = Object.keys(props.data).splice(3, 6);
-  let namesCapital = (names) =>
-    names.map((name) => name.replace(/./, (c) => c.toUpperCase()));
-  let titles = namesCapital(objKeys);
+  var objKeys = props.coping
+    ? props.data
+    : Object.keys(props.data).splice(3, 6);
 
-  console.log(props.data[objKeys[selectedIndex]]);
-
-  var values = props.data[objKeys[selectedIndex]];
+  var values = props.coping ? props.data : props.data[objKeys[selectedIndex]];
 
   const Values = () => {
     return values.map((val, index) => {
@@ -56,26 +53,51 @@ const DetailsItem = (props) => {
 
       return (
         <View key={index} style={{ maxWidth: "95%" }}>
-          <Text adjustsFontSizeToFit style={styles.textKey}>
-            {capVal.trim()}
-          </Text>
-
-          <Text
-            onPress={() => {
-              props.webNav(val.url);
-            }}
-            style={styles.textUrl}
-          >
-            Click here to visit the {capVal.trim()} website.
-          </Text>
-          <View
-            style={{
-              borderBottomColor: "#e7e7e7",
-              borderBottomWidth: 3,
-              width: wp(100),
-              marginVertical: 10,
-            }}
-          />
+          {!props.coping && (
+            <Text adjustsFontSizeToFit style={styles.textKey}>
+              {capVal.trim()}
+            </Text>
+          )}
+          {selectedIndex === index && props.coping && (
+            <Text
+              accessible={true}
+              accessibilityRole="link"
+              onPress={() => {
+                props.webNav(val.url);
+              }}
+              style={styles.textUrl}
+            >
+              Click{" "}
+              <Text style={{ fontWeight: "bold", color: Colors.primary }}>
+                Here
+              </Text>{" "}
+              to visit the {capVal.trim()} website.
+            </Text>
+          )}
+          {!props.coping && (
+            <Text
+              onPress={() => {
+                props.webNav(val.url);
+              }}
+              style={styles.textUrl}
+            >
+              Click{" "}
+              <Text style={{ fontWeight: "bold", color: Colors.primary }}>
+                Here
+              </Text>{" "}
+              to visit the {capVal.trim()} website.
+            </Text>
+          )}
+          {!props.coping && (
+            <View
+              style={{
+                borderBottomColor: "#e7e7e7",
+                borderBottomWidth: 3,
+                width: wp(100),
+                marginVertical: 10,
+              }}
+            />
+          )}
         </View>
       );
     });
@@ -83,14 +105,17 @@ const DetailsItem = (props) => {
 
   const Collapse = () => {
     return objKeys.map((key, index) => {
-      const capKeys = key.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-        letter.toUpperCase()
-      );
+      const capKeys = props.coping
+        ? key.title.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+            letter.toUpperCase()
+          )
+        : key.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
 
       return (
-        <>
+        <View key={index}>
           <TouchableOpacity
-            key={index}
+            accessible={true}
+            accessibilityRole="button"
             onPress={() => {
               toggleExpanded();
               setSelectedIndex(index);
@@ -120,7 +145,7 @@ const DetailsItem = (props) => {
               <Values />
             </View>
           )}
-        </>
+        </View>
       );
     });
   };
@@ -133,20 +158,35 @@ const DetailsItem = (props) => {
           style={styles.image}
           source={require("../../assets/water.jpeg")}
         />
-
-        <Text style={styles.headerTitle}>Overview</Text>
-        <Text adjustsFontSizeToFit style={styles.headerSubtitle}>
-          {props.data.overview}
-        </Text>
-        <Text
-          onPress={() => {
-            props.webNav(props.data.source);
-          }}
-          adjustsFontSizeToFit
-          style={styles.headerSubtitle}
-        >
-          Click here for more information
-        </Text>
+        {!props.coping && (
+          <View style={styles.titleContainer}>
+            <Text
+              accessible={true}
+              accessibilityRole="header"
+              style={styles.headerTitle}
+            >
+              Overview
+            </Text>
+            <Text adjustsFontSizeToFit style={styles.headerSubtitle}>
+              {props.data.overview}
+            </Text>
+            <Text
+              accessible={true}
+              accessibilityRole="link"
+              onPress={() => {
+                props.webNav(props.data.source);
+              }}
+              adjustsFontSizeToFit
+              style={styles.headerSubtitle}
+            >
+              Click{" "}
+              <Text style={{ fontWeight: "bold", color: Colors.primary }}>
+                Here
+              </Text>{" "}
+              for more information
+            </Text>
+          </View>
+        )}
       </View>
       <Collapse />
     </View>
@@ -179,7 +219,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
     marginBottom: 5,
-    color: "#304b8c",
+    color: "#575757",
     paddingHorizontal: 10,
   },
   header: {

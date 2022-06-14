@@ -1,21 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  LayoutAnimation,
-} from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 import { wp, hp } from "./designDimensions";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-
-if (
-  Platform.OS === "android" &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 const Card = (props) => {
   var descriptions = [
@@ -34,6 +21,8 @@ const Card = (props) => {
     <View style={styles.container}>
       <View style={styles.topHalf}>
         <Text
+          accessible={true}
+          accessibilityRole="text"
           style={[
             styles.text,
             {
@@ -45,6 +34,8 @@ const Card = (props) => {
         </Text>
 
         <Comp
+          accessible={true}
+          accessibilityRole="button"
           activeOpacity={0.6}
           style={{ flexDirection: "row" }}
           onPress={() => {
@@ -53,7 +44,11 @@ const Card = (props) => {
             }
           }}
         >
-          <Text style={styles.rightText}>
+          <Text
+            accessible={true}
+            accessibilityRole="text"
+            style={styles.rightText}
+          >
             {props.selected === props.index ? "Next" : "Select"}
           </Text>
           <Ionicons
@@ -72,7 +67,6 @@ const Card = (props) => {
           borderBottomColor: "#e7e7e7",
           borderBottomWidth: 3,
           width: wp(95),
-          // marginTop: 15,
         }}
       />
       <View style={styles.bottomHalf}>
@@ -110,7 +104,17 @@ const Card = (props) => {
         >
           <Text style={styles.hiddenText}>
             {descriptions[props.index]}. Click{" "}
-            <Text style={{ fontWeight: "bold" }}>Next</Text> for more details
+            <Text
+              onPress={() => {
+                if (props.selected === props.index) {
+                  props.onNext();
+                }
+              }}
+              style={{ fontWeight: "bold", color: Colors.primary }}
+            >
+              Next
+            </Text>{" "}
+            for more details
           </Text>
         </View>
       )}

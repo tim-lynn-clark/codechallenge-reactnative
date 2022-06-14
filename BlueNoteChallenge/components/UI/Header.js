@@ -17,8 +17,15 @@ const Header = () => {
       <StatusBar hidden={true} backgroundColor={"transparent"} translucent />
 
       <Image style={styles.image} source={require("../../assets/peace.jpeg")} />
-      <Text style={styles.title}>Welcome to Blue Note</Text>
-      <Text adjustsFontSizeToFit style={styles.subtitle}>
+      <Text accessible={true} accessibilityRole="header" style={styles.title}>
+        Welcome to Blue Note
+      </Text>
+      <Text
+        accessible={true}
+        accessibilityRole="text"
+        adjustsFontSizeToFit
+        style={styles.subtitle}
+      >
         Cancer can be hard, we are here to help.{"\n"}Start here and follow your
         journey below.
       </Text>

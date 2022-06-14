@@ -11,6 +11,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import fetchComponent from "../components/fetchComponent";
 import CancerList from "../components/cancerList";
+import CopingItem from "../components/UI/CopingItem";
 import Header from "../components/UI/Header";
 import Colors from "../constants/Colors";
 
@@ -26,6 +27,25 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={Colors.primary} />
         <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (data === null) {
+    return (
+      <View style={styles.header}>
+        <Header />
+        <View
+          style={{
+            marginTop: 20,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text accessible={true} accessibilityRole="text">
+            Error loading data, Please check connection
+          </Text>
+        </View>
       </View>
     );
   }
@@ -47,6 +67,14 @@ const HomeScreen = ({ navigation }) => {
               }}
             />
           </View>
+          <CopingItem
+            onClick={(link) => {
+              navigation.navigate("Details", {
+                data: { link: link, name: "Coping with Cancer" },
+                coping: true,
+              });
+            }}
+          />
         </SafeAreaView>
       </ScrollView>
     </SafeAreaProvider>

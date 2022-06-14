@@ -28,6 +28,7 @@ const fetchComponent = (props) => {
         setData(response.data);
       }
     } catch (error) {
+      setData(null);
       console.log(error);
     } finally {
       setLoading(false);

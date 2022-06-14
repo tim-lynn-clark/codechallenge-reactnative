@@ -13,7 +13,7 @@ import Colors from "../constants/Colors";
 import DetailsItem from "../components/UI/DetailsItem";
 
 const DetailsScreen = ({ navigation, route }) => {
-  const { data } = route.params;
+  const { data, coping } = route.params;
   const { data: items, loading } = fetchComponent({
     link: data.link,
   });
@@ -26,6 +26,22 @@ const DetailsScreen = ({ navigation, route }) => {
       </View>
     );
   }
+  if (data === null) {
+    return (
+      <View style={styles.header}>
+        <Header />
+        <View
+          style={{
+            marginTop: 20,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text>Error loading data, Please check connection</Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaProvider>
@@ -33,6 +49,7 @@ const DetailsScreen = ({ navigation, route }) => {
         <SafeAreaView style={styles.box}>
           <DetailsItem
             data={items}
+            coping={coping}
             webNav={(link) => {
               navigation.navigate("WebView", { link: link });
             }}
